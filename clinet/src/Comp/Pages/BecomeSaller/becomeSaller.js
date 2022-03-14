@@ -8,7 +8,7 @@ import {Button, Container, Modal, Row, Col, Form, InputGroup} from 'react-bootst
 const BecomeSallerCom = () =>
 {
     const {user,setUser} = useContext(userContext);
-    const [saller, setSaller] = useState({Name:"",userId:"",PhoneNumber:"",Addres:""})
+    const [saller, setSaller] = useState({Name:"",Title:"",Rank:"Junior",AboutMe:"",userId:"",Products:[],Followers:[]})
     const [showModel,setShowModel] = useState(true);
     const history = useHistory();
     const [validated, setValidated] = useState(false);
@@ -72,32 +72,39 @@ const BecomeSallerCom = () =>
                     <h3 style={{marginBottom:"50px"}}>Seller Infromation!</h3>
                             <Form  noValidate validated={validated} onSubmit={handleSubmit}> 
                             <Form.Group as={Row} className="mb-3">
-                                    <Form.Label column md="4">Your Seller Name:</Form.Label>
+                                    <Form.Label column md="4">Guide Name:</Form.Label>
                                     <Col md={8}>
                                         <Form.Control required placeholder="Enter User Name" onChange={(e)=>{setSaller({...saller,Name:e.target.value})}}/>
                                         <Form.Control.Feedback type="invalid">
-                                            Please Enter Seller Name!
+                                            Please Enter Guide Name!
                                         </Form.Control.Feedback>
                                     </Col>
                                 </Form.Group>
 
                                 <Form.Group as={Row} className="mb-3">
-                                    <Form.Label column sm ={4}>Phone Number:</Form.Label>
+                                    <Form.Label column sm ={4}>Title</Form.Label>
                                     <Col md={8}>
-                                        <Form.Control required="true" type="tel" placeholder="Enter Phone Number"  onChange={(e)=>{setSaller({...saller,PhoneNumber:e.target.value})}}/>
+                                        <Form.Control required="true" type="text" placeholder="Enter Your Title"  onChange={(e)=>{setSaller({...saller,Title:e.target.value})}}/>
                                         <Form.Control.Feedback type="invalid">
-                                            Please Enter Phone Number!
+                                            Please Enter Your Title!
                                         </Form.Control.Feedback>
                                     </Col>
                                 </Form.Group>
 
                                 <Form.Group as={Row} className="mb-3">
-                                    <Form.Label column sm ={3}>Addres:</Form.Label>
+                                    <Form.Label column sm ={3}>Rank</Form.Label>
                                     <Col md={9}>
-                                        <Form.Control required="true" type="text" placeholder="Enter Addres"  onChange={(e)=>{setSaller({...saller,Addres:e.target.value})}}/>
+                                        <Form.Control required="true" type="text" value={saller.Rank}/>
                                         <Form.Control.Feedback type="invalid">
-                                            Please Enter Addres!
+                                            Please Enter Rank!
                                         </Form.Control.Feedback>
+                                    </Col>
+                                </Form.Group>
+
+                                <Form.Group as={Row} className="mb-3">
+                                    <Form.Label column sm ={3}>About Me</Form.Label>
+                                    <Col md={9}>
+                                        <Form.Control as="textarea" required="false" type="text" placeholder="Type About You!"  onChange={(e)=>{setSaller({...saller,AboutMe:e.target.value})}}/>
                                     </Col>
                                 </Form.Group>
 

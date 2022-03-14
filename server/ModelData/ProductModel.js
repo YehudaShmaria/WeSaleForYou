@@ -2,16 +2,18 @@ const mongoose = require('mongoose');
 const { array } = require('../Middlewares/uploadImage');
 
 let ProductSchema = new mongoose.Schema({
-    Category:String,
+    Category: String,
+    Modal: String,
     Descrption: String,
-    Name:String,
+    Available: Boolean,
     sallerId: String,
-    Price:Number,
-    Images:Array,
-    Type: String
+    Price: Number,
+    Images: Array,
+    Link: String,
+    PeopleLikede: Array,
 },
-{ timestamps: true }
+    { timestamps: true }
 )
 
-let ProductModel = new mongoose.model('Products',ProductSchema,'Products');
+let ProductModel = new mongoose.model('Products', ProductSchema, 'Products');
 module.exports = ProductModel;

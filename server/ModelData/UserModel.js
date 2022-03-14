@@ -8,7 +8,8 @@ let UserSchema = new mongoose.Schema({
     Type: String,
     Image: String,
     Followed: Array
-},{ timestamps: true }
+},
+    { timestamps: true }
 )
 
 let UserModel = mongoose.model('Users', UserSchema, 'Users');

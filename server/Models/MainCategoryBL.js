@@ -10,94 +10,69 @@ const categoryBL = require('./CategoryBL');
 7 Remove Category from The list
 */
 
-const GetAll = () =>
-{
-    return new Promise((resolve,reject)=>
-        {
-            MainCategoryModel.find({},(err,data)=>
-            {
-                if(err)
-                {
-                    reject(err);
-                }
-                else
-                {
-                    resolve(data);
-                }
-            })
-        });
-}
-
-const GetMainCategory = (id) =>
-{
-    return new Promise((resolve,reject)=>
-    {
-        MainCategoryModel.findById(id,(err,data)=>
-        {
-            if(err)
-            {
+const GetAll = () => {
+    return new Promise((resolve, reject) => {
+        MainCategoryModel.find({}, (err, data) => {
+            if (err) {
                 reject(err);
             }
-            else
-            {
+            else {
+                resolve(data);
+            }
+        })
+    });
+}
+
+const GetMainCategory = (id) => {
+    return new Promise((resolve, reject) => {
+        MainCategoryModel.findById(id, (err, data) => {
+            if (err) {
+                reject(err);
+            }
+            else {
                 resolve(data);
             }
         })
     })
 }
 
-const CreateMainCategory = (obj) =>
-{
-    return new Promise((resolve,reject) =>
-    {
+const CreateMainCategory = (obj) => {
+    return new Promise((resolve, reject) => {
         let mainCategory = new MainCategoryModel({
             Name: obj.Name,
             Category: []
         })
-        mainCategory.save((err,data)=>
-        {
-            if(err)
-            {
+        mainCategory.save((err, data) => {
+            if (err) {
                 reject(err);
             }
-            else
-            {
-                resolve({message:"Main Categroy Created!",MainCategory:data})
+            else {
+                resolve({ message: "Main Categroy Created!", MainCategory: data })
             }
         })
     })
 }
 
-const UpdateMainCategory = (id, obj) =>
-{
-    return new Promise((resolve,reject)=>
-    {
-        MainCategoryModel.findByIdAndUpdate(id,obj,{ new: true }, (err,data) =>
-        {
-            if(err)
-            {
+const UpdateMainCategory = (id, obj) => {
+    return new Promise((resolve, reject) => {
+        MainCategoryModel.findByIdAndUpdate(id, obj, { new: true }, (err, data) => {
+            if (err) {
                 reject(err);
             }
-            else
-            {
-                resolve({message:"Main Category Updated!",MainCategory:data})
+            else {
+                resolve({ message: "Main Category Updated!", MainCategory: data })
             }
         })
     })
 }
 
-const DeleteMainCategory = (id) =>
-{
-    return new Promise((resolve,reject) =>
-    {
-        MainCategoryModel.findByIdAndDelete(id, (err,data) =>
-        {
-            if(err)
-            {
+const DeleteMainCategory = (id) => {
+    return new Promise((resolve, reject) => {
+        MainCategoryModel.findByIdAndDelete(id, (err, data) => {
+            if (err) {
                 reject(err);
             }
-            else
-            {
+            else {
                 resolve("MainCategory Deleted!");
                 //categoryBL.DeleteMain()//.then(message => {
                 //     if(message)
@@ -110,40 +85,30 @@ const DeleteMainCategory = (id) =>
     })
 }
 
-const AddCategory = (mainCategoryName, categoryId) =>
-{
-    return new Promise((resolve, reject) =>
-    {
-        MainCategoryModel.findOneAndUpdate({Name:mainCategoryName},{$push: {Category: categoryId}},(err)=>
-        {
-            if(err)
-            {
+const AddCategory = (mainCategoryName, categoryId) => {
+    return new Promise((resolve, reject) => {
+        MainCategoryModel.findOneAndUpdate({ Name: mainCategoryName }, { $push: { Category: categoryId } }, (err) => {
+            if (err) {
                 reject(err);
             }
-            else
-            {
+            else {
                 resolve("Add category to the category!")
             }
         })
     })
 }
 
-const RemoveCategory = (mainCategoryName, categoryId) =>
-{
-    return new Promise((resolve, reject) =>
-    {
-        MainCategoryModel.findOneAndUpdate({Name:mainCategoryName},{$pull: {Category: categoryId}},(err)=>
-        {
-            if(err)
-            {
+const RemoveCategory = (mainCategoryName, categoryId) => {
+    return new Promise((resolve, reject) => {
+        MainCategoryModel.findOneAndUpdate({ Name: mainCategoryName }, { $pull: { Category: categoryId } }, (err) => {
+            if (err) {
                 reject(err);
             }
-            else
-            {
+            else {
                 resolve("Remove Category from category!")
             }
         })
     })
 }
 
-module.exports = {GetAll, GetMainCategory, CreateMainCategory, UpdateMainCategory, DeleteMainCategory, AddCategory, RemoveCategory};
+module.exports = { GetAll, GetMainCategory, CreateMainCategory, UpdateMainCategory, DeleteMainCategory, AddCategory, RemoveCategory };

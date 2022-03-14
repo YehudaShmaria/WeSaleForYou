@@ -4,9 +4,9 @@ let ConversationSchema = mongoose.Schema({
    Members: Array,
    Messages: Array
 },
-{ timestamps: true }
+   { timestamps: true }
 )
 
-let ConversationModel = mongoose.model('Conversation',ConversationSchema,'Conversation');
+let ConversationModel = mongoose.model('Conversation', ConversationSchema, 'Conversation');
 
 module.exports = ConversationModel;

@@ -12,17 +12,13 @@ const UserBL = require('./UserBL');
 */
 
 
-const GetAll = () =>
-{
-    return new Promise((resolve,reject)=>
-    {
-        SallerModel.find({},(err,data)=>
-        {
-            if(err)
-            {
+const GetAll = () => {
+    return new Promise((resolve, reject) => {
+        SallerModel.find({}, (err, data) => {
+            if (err) {
                 reject(err);
             }
-            else{
+            else {
                 resolve(data);
             }
         })
@@ -30,36 +26,26 @@ const GetAll = () =>
 }
 
 
-const GetSallerWithUserId = (userId) =>
-{
-    return new Promise((resolve,reject) => 
-    {
-        SallerModel.findOne({userId:userId},(err,data)=>
-        {
-            if(err)
-            {
+const GetSallerWithUserId = (userId) => {
+    return new Promise((resolve, reject) => {
+        SallerModel.findOne({ userId: userId }, (err, data) => {
+            if (err) {
                 reject(err);
             }
-            else
-            {
+            else {
                 resolve(data);
             }
         })
     })
 }
 
-const GetSaller = (id) =>
-{
-    return new Promise((resolve,reject) => 
-    {
-        SallerModel.findById(id,(err,data)=>
-        {
-            if(err)
-            {
+const GetSaller = (id) => {
+    return new Promise((resolve, reject) => {
+        SallerModel.findById(id, (err, data) => {
+            if (err) {
                 reject(err);
             }
-            else
-            {
+            else {
                 resolve(data);
             }
         })
@@ -68,119 +54,92 @@ const GetSaller = (id) =>
 
 
 
-const CreateSaller = (obj) =>
-{
-    return new Promise((resolve,reject)=>
-    {
+const CreateSaller = (obj) => {
+    return new Promise((resolve, reject) => {
         //Check If The saller dosn't exsite!
-        GetSallerWithUserId(obj.userId).then(data =>
-            {
-                if(data != null)
-                {
-                    resolve({message:"Seller Exsite!",saller:null});
-                }
-                //Create saller
-                else
-                {
-                    UserBL.SwitchType(obj.userId,"Saller").then(id =>{
-                        let Saller = new SallerModel({
-                            Products:[],
-                            userId: id,
-                            Name: obj.Name,
-                            PhoneNumber: obj.PhoneNumber,
-                            Addres: obj.Addres,
-                            NumOfSalles:0,
-                            Followers: []
-                        });
-                        Saller.save((err,data)=>
-                        {
-                            if(err)
-                            {
-                                reject(err)
-                            }
-                            else
-                            {
-                                resolve({message:"Created Saller",saller:data});
-                            }
-                        });
+        GetSallerWithUserId(obj.userId).then(data => {
+            if (data != null) {
+                resolve({ message: "Seller Exsite!", saller: null });
+            }
+            //Create saller
+            else {
+                UserBL.SwitchType(obj.userId, "Saller").then(id => {
+                    let Saller = new SallerModel({
+                        Name: obj.Name,
+                        Title: obj.Title,
+                        Rank: obj.Rank,
+                        AboutMe: obj.AboutMe,
+                        userId: id,
+                        Followers: obj.Followers,
+                        Products: obj.Products,
                     });
-                }
-            });
+                    Saller.save((err, data) => {
+                        if (err) {
+                            reject(err)
+                        }
+                        else {
+                            resolve({ message: "Created Saller", saller: data });
+                        }
+                    });
+                });
+            }
+        });
     });
 }
 
-const UpdateSaller = (id,obj) =>{
-    return new Promise((resolve,reject)=>{
-        SallerModel.findByIdAndUpdate(id,obj,{ new: true }, (err, data)=>
-        {
-            if(err)
-            {
+const UpdateSaller = (id, obj) => {
+    return new Promise((resolve, reject) => {
+        SallerModel.findByIdAndUpdate(id, obj, { new: true }, (err, data) => {
+            if (err) {
                 reject(err)
             }
-            else
-            {
-                resolve({message:"Saller Updated!",newSaller:data})
+            else {
+                resolve({ message: "Saller Updated!", newSaller: data })
             }
         })
     })
 }
 
-const DeleteSaller = (id) =>
-{
-    return new Promise((resolve,reject)=>
-    {
-        SallerModel.findByIdAndDelete(id,(err,data)=>
-        {
-            if(err)
-            {
+const DeleteSaller = (id) => {
+    return new Promise((resolve, reject) => {
+        SallerModel.findByIdAndDelete(id, (err, data) => {
+            if (err) {
                 reject(err)
             }
-            else
-            {
-            UserBL.SwitchType(data.userId,"User").then(info =>
-                {
-                    
-                    resolve({message:"Saller Deleted! Change To Be User",Seller:data});
+            else {
+                UserBL.SwitchType(data.userId, "User").then(info => {
+
+                    resolve({ message: "Saller Deleted! Change To Be User", Seller: data });
                 });
-            } 
+            }
         })
     })
 }
 
-const AddPrudoct = (sallerId,productId) =>
-{
-    return new Promise((resolve) =>
-    {
-        SallerModel.findOneAndUpdate({_id:sallerId}, {$push: {Products: productId}}, { new: true },(err,data)=>
-        {
-            if(err)
-            {
+const AddPrudoct = (sallerId, productId) => {
+    return new Promise((resolve) => {
+        SallerModel.findOneAndUpdate({ _id: sallerId }, { $push: { Products: productId } }, { new: true }, (err, data) => {
+            if (err) {
                 reject(err)
             }
-            else
-            {
+            else {
                 resolve(data);
             }
         })
     })
 }
 
-const RemoveProduct = (sallerId,productId) =>
-{
-    return new Promise((resolve,reject)=>
-    {
-        SallerModel.findOneAndUpdate({_id:sallerId},{$pull: {Products:productId}},{ new: true },(err,data)=>
-        {
-            if(err)
-            {
+const RemoveProduct = (sallerId, productId) => {
+    return new Promise((resolve, reject) => {
+        SallerModel.findOneAndUpdate({ _id: sallerId }, { $pull: { Products: productId } }, { new: true }, (err, data) => {
+            if (err) {
                 reject(err);
             }
-            else
-            {
+            else {
                 resolve(data);
             }
         })
     })
 }
 
-module.exports = {GetAll, CreateSaller, GetSaller, UpdateSaller, DeleteSaller, AddPrudoct, RemoveProduct, GetSallerWithUserId}
+module.exports = { GetAll, CreateSaller, GetSaller, UpdateSaller, DeleteSaller, AddPrudoct, RemoveProduct, GetSallerWithUserId }

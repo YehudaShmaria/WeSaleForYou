@@ -17,26 +17,18 @@ const ProductCom = (props) =>
         <div>
             {
             product ? <>
-            
             <Card style={{ width: '18rem' }}>
                 <Card.Header style={{display:'flex',alignItems:'center'}}>
-                <span>Type: {product.Type}</span>
-                <hr style={{borderBottom:'2px solid red', flex:'1'}}/>
                 <span>Category: {product.Category}</span>
                 </Card.Header>
                 <Card.Img variant="top" src={`http://localhost:5000/${product.Images[0]}`} />
                     <Card.Body>
-                        <Card.Title>{product.Name}</Card.Title>
-                        <Card.Text>
-                         {product.Descrption}
-                        </Card.Text>
+                        <Card.Title>{product.Modal}</Card.Title>
                     </Card.Body>
                     <ListGroup className="list-group-flush">
-                        <ListGroupItem>Price: {"$"+product.Price}</ListGroupItem>
-                        <ListGroupItem><Button variant="primary" onClick={() => setShowImages(true)}>Images</Button></ListGroupItem>
+                        <ListGroupItem>Price: {"$"+product.Price} <Button variant="primary" onClick={() => setShowImages(true)}>Images</Button></ListGroupItem>
                     </ListGroup>
-                    <Button
-                    >Send Message For The Seller</Button>
+                    <Button href={product.Link} target="_blank">Watch Product</Button>
                 </Card>
                 <Modal
                     size="lg"

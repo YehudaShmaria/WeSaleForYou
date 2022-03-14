@@ -4,36 +4,32 @@ const MessageBL = require('../Models/MessageBL');
 let router = express.Router();
 
 
-router.route('/:id').post((req,res)=>
-{
-    try{
-        
+router.route('/:id').post((req, res) => {
+    try {
+
         let id = req.params.id;
         let obj = req.body;
-        MessageBL.CreateMessage(id,obj).then(data =>
-            {
-                res.status(200).send(data);
-            })
+        MessageBL.CreateMessage(id, obj).then(data => {
+            res.status(200).send(data);
+        })
     }
     catch
     {
-        res.status(401).send({message:"Sory Something went wrong during the process"})
+        res.status(401).send({ message: "Sory Something went wrong during the process" })
     }
 });
 
-router.route('/:conversationid/:id').delete((req,res)=>
-{
-    try{
+router.route('/:conversationid/:id').delete((req, res) => {
+    try {
         let id = req.params.id;
         let conversationId = req.params.conversationid;
-        MessageBL.DeleteMessage(id,conversationId).then(data =>
-            {
-                res.status(200).send(data);
-            })
+        MessageBL.DeleteMessage(id, conversationId).then(data => {
+            res.status(200).send(data);
+        })
     }
     catch
     {
-        res.status(401).send({message:"Sory Something went wrong during the process"})
+        res.status(401).send({ message: "Sory Something went wrong during the process" })
     }
 })
 
@@ -50,7 +46,7 @@ router.route('/:conversationid/:id').delete((req,res)=>
 //     {
 //         res.status(401).send({message:"Sory Something went wrong during the process"})
 //     }
-   
+
 // })
 
 module.exports = router;

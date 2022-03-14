@@ -1,8 +1,8 @@
-import {Route, Switch, withRouter} from 'react-router-dom'
+import { Route, Switch, withRouter } from 'react-router-dom'
 import LoginCom from './Comp/Auto/login';
-import ALlProductsCom from './Comp/Pages/Products/aLlProducts';
+import ALlProductsCom from './Comp/Pages/Products/allProducts';
 import HomeCom from './Comp/Pages/Home/home';
-import RegisterCom from './Comp/Auto/register';
+import RegisterCom from './Comp/Auto/Register/register';
 import NavCom from './Comp/Layout/nav';
 import FooterCom from './Comp/Layout/footer';
 import ProfileCom from './Comp/Pages/Profile/profile';
@@ -10,90 +10,94 @@ import { useContext, useEffect, useState } from 'react';
 import { userContext } from './Comp/Auto/userContext';
 import axios from 'axios';
 import BecomeSallerCom from './Comp/Pages/BecomeSaller/becomeSaller';
-import SallerMainCom from './Comp/Pages/MangeProduts/mainSaller';
+import SallerMainCom from './Comp/Pages/MangeProduts/sallerProvider';
 import MessengerCom from './Comp/Pages/Messages/messenger';
 import MainSellerCom from './Comp/Pages/Sallers/mainseller';
 import AdminHomeCom from './Comp/Admin/adminHome';
+import MainChatCom from './Comp/Pages/ChatRooms/mainChat';
 
-const WebPageCom = ()=>
-{
-    const {user,setUser} = useContext(userContext);
-    const [type,setType] = useState(false);
+const WebPageCom = () => {
+    const { user, setUser } = useContext(userContext);
+    const [type, setType] = useState(false);
 
-    useEffect(async()=>
-    {
+    useEffect(async () => {
         let token = localStorage.getItem("token");
-        if(token)
-        {
-            let res = await axios.get("http://localhost:5000/auto",{headers:{
-                "x-access-token":token
-            }});
+        if (token) {
+            let res = await axios.get("http://localhost:5000/auto", {
+                headers: {
+                    "x-access-token": token
+                }
+            });
             setUser(res.data);
         }
-    },[])
+    }, [])
 
-    useEffect(()=>
-    {
-        if(user)
-        {
+    useEffect(() => {
+        if (user) {
             user.Type == "Saller" ? setType(true) : setType(false);
         }
         else
             setType(false);
-    },[user])
+    }, [user])
 
-    return(
+    return (
         <div className="App">
-          <NavCom/>
-                <Switch>
-                   <Route exact path="/">
-                         <HomeCom/>
-                      </Route>
-                      
-                      <Route path="/login">
-                        {
-                            user ? null: <LoginCom/>
-                        } 
-                      </Route>
-                      <Route path="/products">
-                         <ALlProductsCom/>
-                      </Route>
-                      <Route path="/admin">
-                         <AdminHomeCom/>
-                      </Route>
-                      <Route path="/register">
-                          
-                        {
-                            user ? null : <RegisterCom/>
-                        } 
-                        
-                      </Route>
-                      <Route path="/profile">
-                          {
-                              user ? <ProfileCom/> : <LoginCom/>
-                          }
-                      </Route>
-                      <Route path="/sallers">
-                         <MainSellerCom/>
-                      </Route>
+            <div style={{marginBottom:'70px'}}>
+                <NavCom />
+            </div>
 
-                    <Route path="/messenger">
+            <Switch>
+                <Route exact path="/">
+                    <HomeCom />
+                </Route>
+
+                <Route path="/login">
                     {
-                        user ? <MessengerCom/> : <LoginCom/>
-                    } 
-                    </Route>
-                    
+                        user ? null : <LoginCom />
+                    }
+                </Route>
+                <Route path="/product/:category">
+                    <ALlProductsCom />
+                </Route>
+                <Route path="/chat/:category">
+                    <MainChatCom />
+                </Route>
+                <Route path="/admin">
+                    <AdminHomeCom />
+                </Route>
+                <Route path="/register">
+
                     {
-                        type ? <>
-                         <Route path="/mangeproduct">
-                           <SallerMainCom/>
-                        </Route></> : <Route path="/createsaller"><BecomeSallerCom/></Route>
+                        user ? null : <RegisterCom />
                     }
 
-                   
-                </Switch>
-      {/* <FooterCom/> */}
-      </div>
+                </Route>
+                <Route path="/profile">
+                    {
+                        user ? <ProfileCom /> : <LoginCom />
+                    }
+                </Route>
+                <Route path="/sallers">
+                    <MainSellerCom />
+                </Route>
+
+                <Route path="/messenger">
+                    {
+                        user ? <MessengerCom /> : <LoginCom />
+                    }
+                </Route>
+
+                {
+                    type ? <>
+                        <Route path="/mangeproduct">
+                            <SallerMainCom />
+                        </Route></> : <Route path="/createsaller"><BecomeSallerCom /></Route>
+                }
+
+
+            </Switch>
+            {/* <FooterCom/> */}
+        </div>
     )
 }
 export default WebPageCom

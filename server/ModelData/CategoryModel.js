@@ -5,9 +5,9 @@ let CategorySchema = mongoose.Schema({
     Type: String,
     Products: Array
 },
-{ timestamps: true }
+    { timestamps: true }
 )
 
-let CategoryModel = mongoose.model('Categoty',CategorySchema,'Category');
+let CategoryModel = mongoose.model('Categoty', CategorySchema, 'Category');
 
 module.exports = CategoryModel;

@@ -38,11 +38,9 @@ const ProductCom = (props) =>
                 product ? <>
             
             <Card style={{ width: '18rem' }}>
-                    <Card.Header style={{display:'flex',alignItems:'center'}}>
-                        <span>Type: {product.Type}</span>
-                        <hr style={{borderBottom:'2px solid red', flex:'1'}}/>
-                        <span>Category: {product.Category}</span>
-                    </Card.Header>
+            <Card.Header style={{display:'flex',alignItems:'center'}}>
+                <span>Category: {product.Category}</span>
+                </Card.Header>
                 <Card.Img variant="top" src={`http://localhost:5000/${product.Images[0]}`} />
                     <Card.Body>
                         <Card.Title>{product.Name}</Card.Title>

@@ -5,9 +5,9 @@ let MessageSchema = mongoose.Schema({
     SenderId: String,
     Text: String
 },
-{ timestamps: true }
+    { timestamps: true }
 )
 
-let MessageModel = mongoose.model('Message',MessageSchema,'message');
+let MessageModel = mongoose.model('Message', MessageSchema, 'message');
 
 module.exports = MessageModel;

@@ -124,7 +124,6 @@ const EditMainCom = (props) =>
                                     Please Enter Valid Name!
                             </Form.Control.Feedback>
                     </Form.Group>
-
                     <Button variant="primary" type="submit">
                         Submit
                     </Button>

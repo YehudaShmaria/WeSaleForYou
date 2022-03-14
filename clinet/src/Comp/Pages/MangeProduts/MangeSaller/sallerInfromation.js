@@ -35,8 +35,9 @@ const SallerInfromationCom = () =>
                                 {
                                     saller ? <>
                                         <h4>Name: {saller.Name}</h4>
-                                        <h4>Phone Number: {saller.PhoneNumber}</h4>
-                                        <h4>Addres: {saller.Addres}</h4>
+                                        <h4>Title: {saller.Title}</h4>
+                                        <h4>Rank: {saller.Rank}</h4>
+                                        <h4>About Me: {saller.AboutMe}</h4>
                                     </>:null
                                 }
                                

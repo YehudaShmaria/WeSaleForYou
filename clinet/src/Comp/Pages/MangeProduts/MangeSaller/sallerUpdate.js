@@ -55,34 +55,31 @@ const SallerUpdateCom = () =>
                 <div>
                     <h3 style={{color:"yellowgreen",backgroundColor:"whitesmoke",padding:"10px"}}>Seller Update</h3>
                 </div>
-                <Form  noValidate validated={validated} onSubmit={handleSubmit}> 
+                <Form  style={{textAlign:'left'}} noValidate validated={validated} onSubmit={handleSubmit}> 
                             <Form.Group as={Row} className="mb-3">
                                     <Form.Label column md="4">Your Seller Name:</Form.Label>
                                     <Col md={8}>
                                         <Form.Control required placeholder="Enter User Name" value={updateSaller.Name} onChange={(e)=>{setUpdateSaller({...updateSaller,Name:e.target.value})}}/>
                                         <Form.Control.Feedback type="invalid">
-                                            Please Enter Seller Name!
+                                            Please Enter Guide Name!
                                         </Form.Control.Feedback>
                                     </Col>
                                 </Form.Group>
 
                                 <Form.Group as={Row} className="mb-3">
-                                    <Form.Label column sm ={4}>Phone Number:</Form.Label>
+                                    <Form.Label column sm ={4}>Title:</Form.Label>
                                     <Col md={8}>
-                                        <Form.Control required="true" type="tel" placeholder="Enter Phone Number"  value={updateSaller.PhoneNumber} onChange={(e)=>{setUpdateSaller({...updateSaller,PhoneNumber:e.target.value})}}/>
+                                        <Form.Control required="true" type="tel" placeholder="Enter Your Title"  value={updateSaller.Title} onChange={(e)=>{setUpdateSaller({...updateSaller,Title:e.target.value})}}/>
                                         <Form.Control.Feedback type="invalid">
-                                            Please Enter Phone Number!
+                                            Please Enter Your Title!
                                         </Form.Control.Feedback>
                                     </Col>
                                 </Form.Group>
 
                                 <Form.Group as={Row} className="mb-3">
-                                    <Form.Label column sm ={3}>Addres:</Form.Label>
+                                    <Form.Label column sm ={3}>About Me:</Form.Label>
                                     <Col md={9}>
-                                        <Form.Control required="true" type="text" placeholder="Enter Addres" value={updateSaller.Addres} onChange={(e)=>{setUpdateSaller({...updateSaller,Addres:e.target.value})}}/>
-                                        <Form.Control.Feedback type="invalid">
-                                            Please Enter Addres!
-                                        </Form.Control.Feedback>
+                                        <Form.Control required="false" as="textarea" type="text" placeholder="Enter AboutMe" value={updateSaller.AboutMe} onChange={(e)=>{setUpdateSaller({...updateSaller,AboutMe:e.target.value})}}/>
                                     </Col>
                                 </Form.Group>
 
